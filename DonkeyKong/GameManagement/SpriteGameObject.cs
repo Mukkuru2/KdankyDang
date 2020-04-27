@@ -6,6 +6,7 @@ public class SpriteGameObject : GameObject
     protected SpriteSheet sprite;
     protected Vector2 origin;
     public bool PerPixelCollisionDetection = true;
+    protected float sizeScalar;
 
     public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
         : base(layer, id)
@@ -18,15 +19,24 @@ public class SpriteGameObject : GameObject
         {
             sprite = null;
         }
-    }    
+    }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (!visible || sprite == null)
-        {
             return;
+
+        spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, Angle - MathHelper.ToRadians(offsetDegrees), Origin, sizeScalar, SpriteEffects.None, 0);
+    }
+
+    public override Rectangle BoundingBox
+    {
+        get
+        {
+            int left = (int)(GlobalPosition.X - origin.X);
+            int top = (int)(GlobalPosition.Y - origin.Y);
+            return new Rectangle(left, top, (int)(Width * sizeScalar), (int)(Height * sizeScalar));
         }
-        sprite.Draw(spriteBatch, this.GlobalPosition, origin);
     }
 
     public SpriteSheet Sprite

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bomberman
+namespace DonkeyKong
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -14,7 +14,7 @@ namespace Bomberman
         [STAThread]
         static void Main()
         {
-            using (var game = new Bomberman())
+            using (var game = new DonkeyKong())
                 game.Run();
         }
     }

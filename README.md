@@ -1,2 +1,2 @@
-# BomberMan
-A Bomberman Clone
+# DonkeyKong
+A DonkeyKong Clone

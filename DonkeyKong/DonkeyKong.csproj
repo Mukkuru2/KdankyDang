@@ -9,8 +9,8 @@
     <ProjectGuid>{6FAC7E83-C68E-45FA-B629-BE82C8936C9E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bomberman</RootNamespace>
-    <AssemblyName>Bomberman</AssemblyName>
+    <RootNamespace>DonkeyKong</RootNamespace>
+    <AssemblyName>DonkeyKong</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -44,7 +44,7 @@
     <Compile Include="GameState\GameOverState.cs" />
     <Compile Include="GameState\PlayingState.cs" />
     <Compile Include="GameState\StartState.cs" />
-    <Compile Include="Bomberman.cs" />
+    <Compile Include="DonkeyKong.cs" />
     <Compile Include="GameManagement\AnimatedGameObject.cs" />
     <Compile Include="GameManagement\Animation.cs" />
     <Compile Include="GameManagement\AssetManager.cs" />

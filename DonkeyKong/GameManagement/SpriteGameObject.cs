@@ -6,7 +6,7 @@ public class SpriteGameObject : GameObject
     protected SpriteSheet sprite;
     protected Vector2 origin;
     public bool PerPixelCollisionDetection = true;
-    protected float sizeScalar;
+    protected float sizeScalar = 1.0f;
 
     public SpriteGameObject(string assetName, int layer = 0, string id = "", int sheetIndex = 0)
         : base(layer, id)
@@ -26,18 +26,15 @@ public class SpriteGameObject : GameObject
         if (!visible || sprite == null)
             return;
 
-        spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, Angle - MathHelper.ToRadians(offsetDegrees), Origin, sizeScalar, SpriteEffects.None, 0);
+        SpriteEffects spriteEffects = SpriteEffects.None;
+        if (Mirror)
+        {
+            spriteEffects = SpriteEffects.FlipHorizontally;
+        }
+
+        spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, 0, Origin, sizeScalar, spriteEffects, 0);
     }
 
-    public override Rectangle BoundingBox
-    {
-        get
-        {
-            int left = (int)(GlobalPosition.X - origin.X);
-            int top = (int)(GlobalPosition.Y - origin.Y);
-            return new Rectangle(left, top, (int)(Width * sizeScalar), (int)(Height * sizeScalar));
-        }
-    }
 
     public SpriteSheet Sprite
     {
@@ -76,6 +73,12 @@ public class SpriteGameObject : GameObject
         get { return origin; }
         set { origin = value; }
     }
+    
+    public float SizeScalar 
+    {
+        get { return sizeScalar; }
+        set { sizeScalar = value; }
+    }
 
     public override Rectangle BoundingBox
     {
@@ -83,7 +86,7 @@ public class SpriteGameObject : GameObject
         {
             int left = (int)(GlobalPosition.X - origin.X);
             int top = (int)(GlobalPosition.Y - origin.Y);
-            return new Rectangle(left, top, Width, Height);
+            return new Rectangle(left, top, (int)(Width * sizeScalar), (int)(Height * sizeScalar));
         }
     }
 

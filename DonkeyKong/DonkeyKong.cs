@@ -26,8 +26,6 @@ namespace DonkeyKong
             GameStateManager.AddGameState("GameOverState", new GameOverState());
 
             GameStateManager.SwitchTo("StartState");
-
-            // TODO: use this.Content to load your game content here
         }
 
     }

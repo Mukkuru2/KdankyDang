@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 public abstract class GameObject : IGameLoopObject
 {
     protected GameObject parent;
-    protected Vector2 position, velocity;
+    protected Vector2 position, velocity, acceleration;
     protected int layer;
     protected string id;
     protected bool visible;
@@ -24,7 +24,9 @@ public abstract class GameObject : IGameLoopObject
 
     public virtual void Update(GameTime gameTime)
     {
-        position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds;
+        float elapsedGameTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        velocity += acceleration * elapsedGameTime;
+        position += velocity * elapsedGameTime;
     }
 
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -46,6 +48,12 @@ public abstract class GameObject : IGameLoopObject
     {
         get { return velocity; }
         set { velocity = value; }
+    }
+
+    public virtual Vector2 Accelleration
+    {
+        get { return acceleration; }
+        set { acceleration = value; }
     }
 
     public virtual Vector2 GlobalPosition

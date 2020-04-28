@@ -13,7 +13,7 @@ namespace DonkeyKong
     {
         public StartState()
         {
-            this.Add(new SpriteGameObject("IntroScreen"));
+            this.Add(new SpriteGameObject("StartScreen"));
         }
 
         public override void HandleInput(InputHelper inputHelper)

@@ -12,13 +12,13 @@ namespace DonkeyKong.GameObjects
     {
         private bool onPlatform;
         private readonly Dictionary<Keys, Vector2> AccelerationDict = new Dictionary<Keys, Vector2>();
-        private readonly float leftRightAccelerationModifier = 10000;
-        private readonly float jumpAccelerationModifier = 15000;
+        private readonly float leftRightAccelerationModifier = 2000;
+        private readonly float jumpAccelerationModifier = 4800;
         private readonly float leftRightResistance = 0.9f;
         private readonly float fallResistance = 0.98f;
-        private float gravity = 3000;
+        private float gravity = 1000;
         private DateTime jumpTimeStart;
-        private TimeSpan totalJumpTime = TimeSpan.FromMilliseconds(100);
+        private TimeSpan totalJumpTime = TimeSpan.FromMilliseconds(150);
 
         public bool OnPlatform { get => onPlatform; set => onPlatform = value; }
 

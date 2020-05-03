@@ -22,6 +22,7 @@ namespace DonkeyKong
             if (inputHelper.KeyPressed(Keys.Space))
             {
                 GameEnvironment.GameStateManager.SwitchTo("PlayingState");
+                GameEnvironment.GameStateManager.Reset();
             }
         }
     }

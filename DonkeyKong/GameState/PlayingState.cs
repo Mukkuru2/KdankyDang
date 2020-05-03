@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DonkeyKong.GameObjects;
+using DonkeyKong.GameObjects.MarioMovementStrategy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -26,53 +27,86 @@ namespace DonkeyKong
             this.Add(floors);
 
             ladders = new GameObjectList();
+            this.Add(ladders);
 
-            mario = new Mario();
+            mario = new Mario(new Vector2(100, 900));
             this.Add(mario);
 
-            int floorVerticalStartOffset = 300;
-            int floorTextureWidth = 96;
-            int floorSetsHeightDifference = 210;
-            int floorIndividualOffset = 3;
-            int totalFloors = 18;
 
-            int ladderHeight = 24;
-            int ladderVerticalStartOffset = 20;
-            for (int iFloors = 0; iFloors < 4; iFloors++)
+            SpriteSheet floorSpriteDimensions = new SpriteSheet("spr_floor");
+            SpriteSheet ladderSpriteDimensions = new SpriteSheet("spr_ladder_piece");
+
+            int floorVerticalStartOffset = 300;
+            int floorSetsHeightDifference = 225;
+            int floorIndividualOffset = 4;
+            int floorsPerLayer = 18;
+            int floorLayers = 4;
+
+            int ladderVerticalStartOffset = 10;
+            int baseLadderAmount = 5;
+
+            ladders.Add(new Ladder(new Vector2(10, 10)));
+
+            for (int iFloors = 0; iFloors < floorLayers; iFloors++)
             {
-                for (int jFloors = 0; jFloors < totalFloors; jFloors++)
+                for (int jFloors = 0; jFloors < floorsPerLayer; jFloors++)
                 {
                     //create floors from right to left or left to right alternating
                     //floorSetsHeightDifference gives the difference in height between the first floor of two sets
                     //floorIndividualOffset gives the height each floor in a set goes down the next iteration
-                    if (iFloors % 2 == 0)
+                    if (iFloors % 2 == 0) //right to left walk direction for these platforms
                     {
                         floors.Add(new Floor(new Vector2(
-                            jFloors * floorTextureWidth,
-                            floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
+                          jFloors * floorSpriteDimensions.Width,
+                          floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
 
-                        if (jFloors == totalFloors - 1)
+                        //add ladders to edges
+                        if (jFloors == floorsPerLayer - 1)
                         {
-                            for (int iLadder = 0; iLadder < 5; iLadder++)
+                            for (int iLadder = 0; iLadder < baseLadderAmount; iLadder++)
                             {
                                 ladders.Add(new Ladder(new Vector2(
-                                    jFloors * floorTextureWidth,
+                                    jFloors * floorSpriteDimensions.Width
+                                    - ladderSpriteDimensions.Width / 2,
+                                    ladderVerticalStartOffset + iLadder * ladderSpriteDimensions.Sprite.Height +
                                     floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
                             }
                         }
                     }
-                    else
+                    else //left to right walkdirection for these platforms
                     {
-                        floors.Add(new Floor(new Vector2(
-                            GameEnvironment.Screen.X - floorTextureWidth - jFloors * floorTextureWidth,
-                            floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
-
-                        if (jFloors == totalFloors - 1)
+                        //only spawn if the bottom layer is above the bottom of the screen. This is only present here because
+                        //the bottom layer will always go left to right by design
+                        if (floorVerticalStartOffset + iFloors * floorSetsHeightDifference + (jFloors + 1) * floorIndividualOffset + 48
+                           < GameEnvironment.Screen.Y)
                         {
-                            for (int iLadder = 0; iLadder < 5; iLadder++)
+                            floors.Add(new Floor(new Vector2(
+                            GameEnvironment.Screen.X - floorSpriteDimensions.Width - jFloors * floorSpriteDimensions.Width,
+                            floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
+                        }
+                        else
+                        {
+                            int kFloors = 0;
+                            while (GameEnvironment.Screen.X - floorSpriteDimensions.Width - (jFloors + kFloors) * floorSpriteDimensions.Width > -floorSpriteDimensions.Width)
                             {
+                                floors.Add(new Floor(new Vector2(
+                                    GameEnvironment.Screen.X - floorSpriteDimensions.Width - (jFloors + kFloors) * floorSpriteDimensions.Width,
+                                    floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
+                                kFloors++;
+                            }
+                            break;
+                        }
 
-
+                        //add ladders to edges
+                        if (jFloors == floorsPerLayer - 2)
+                        {
+                            for (int iLadder = 0; iLadder < baseLadderAmount; iLadder++)
+                            {
+                                ladders.Add(new Ladder(new Vector2(
+                                    GameEnvironment.Screen.X - floorSpriteDimensions.Width - jFloors * floorSpriteDimensions.Width
+                                    - ladderSpriteDimensions.Width / 2,
+                                    ladderVerticalStartOffset + iLadder * ladderSpriteDimensions.Sprite.Height +
+                                    floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
                             }
                         }
                     }
@@ -111,13 +145,26 @@ namespace DonkeyKong
                 {
                     mario.Velocity = new Vector2(mario.Velocity.X, 0);
                     mario.Accelleration = new Vector2(mario.Accelleration.X, 0);
-                    mario.OnPlatform = true;
+                    mario.MovementStrategy = new OnFloor();
                     mario.Position = new Vector2(mario.Position.X, -mario.Sprite.Height + floor.Position.Y + 1);
                     break;
                 }
-                else
+                else if (mario.MovementStrategy.GetType() == typeof(OnFloor))
                 {
-                    mario.OnPlatform = false;
+                    mario.MovementStrategy = new NormalMovement();
+                }
+            }
+
+            foreach (Ladder ladder in ladders.Children)
+            {
+                if (ladder.CollidesWith(mario))
+                {
+                    mario.MovementStrategy = new OnLadder();
+                    break;
+                }
+                if (mario.MovementStrategy.GetType() == typeof(OnLadder))
+                {
+                    mario.MovementStrategy = new NormalMovement();
                 }
             }
         }

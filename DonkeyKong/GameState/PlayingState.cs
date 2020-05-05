@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DonkeyKong.GameObjects;
-using DonkeyKong.GameObjects.MarioMovementStrategy;
+using DonkeyKong.GameObjects.MovementStrategies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,8 +14,41 @@ namespace DonkeyKong
     class PlayingState : GameObjectList
     {
         Mario mario;
+        Pauline pauline;
         GameObjectList floors;
         GameObjectList ladders;
+        GameObjectList barrels;
+
+        private readonly int floorVerticalStartOffset = 300;
+        private readonly int floorSetsHeightDifference = 225;
+        private readonly int floorIndividualOffset = 4;
+        private readonly int floorsPerLayer = 18;
+        private readonly int floorLayers = 4;
+
+        private readonly int ladderVerticalStartOffset = 10;
+        private readonly int baseLadderAmount = 5;
+
+        //the variables for the miscelaneous ladders
+        private readonly int ladderAmountMisc1 = 3;
+        private readonly int ladderFloorMisc1 = 12;
+        private readonly int ladderFloorSetMisc1 = 1;
+
+        private readonly int ladderAmountMisc2 = 5;
+        private readonly int ladderFloorMisc2 = 3;
+        private readonly int ladderFloorSetMisc2 = 0;
+
+        private readonly int ladderAmountMisc3 = 2;
+        private readonly int ladderFloorMisc3 = 6;
+        private readonly int ladderFloorSetMisc3 = 2;
+
+        private readonly int paulineMaxLadders = 6;
+
+        //distance Mario has to be from center of ladder to 
+        private readonly int ladderDistanceTrigger = 20;
+
+        //distance the barrels have to be from mario to go offscreen
+        private readonly int BarrelOffScreenDifference = 100;
+
 
         public PlayingState()
         {
@@ -23,6 +56,8 @@ namespace DonkeyKong
 
         public override void Reset()
         {
+            children.Clear();
+
             floors = new GameObjectList();
             this.Add(floors);
 
@@ -32,20 +67,17 @@ namespace DonkeyKong
             mario = new Mario(new Vector2(100, 900));
             this.Add(mario);
 
+            pauline = new Pauline(new Vector2(800, 150));
+            this.Add(pauline);
+            
+            barrels = new GameObjectList();
+            this.Add(barrels);
+
 
             SpriteSheet floorSpriteDimensions = new SpriteSheet("spr_floor");
             SpriteSheet ladderSpriteDimensions = new SpriteSheet("spr_ladder_piece");
 
-            int floorVerticalStartOffset = 300;
-            int floorSetsHeightDifference = 225;
-            int floorIndividualOffset = 4;
-            int floorsPerLayer = 18;
-            int floorLayers = 4;
-
-            int ladderVerticalStartOffset = 10;
-            int baseLadderAmount = 5;
-
-            ladders.Add(new Ladder(new Vector2(10, 10)));
+            barrels.Add(new Barrel(new Vector2(10, 10), new Vector2(200, 0)));
 
             for (int iFloors = 0; iFloors < floorLayers; iFloors++)
             {
@@ -111,7 +143,53 @@ namespace DonkeyKong
                         }
                     }
 
+                    //add misc ladders
+                    if (jFloors == ladderFloorMisc1 && iFloors == ladderFloorSetMisc1)
+                        for (int iLadder = 0; iLadder < ladderAmountMisc1; iLadder++)
+                        {
+                            ladders.Add(new Ladder(new Vector2(
+                                    GameEnvironment.Screen.X - floorSpriteDimensions.Width - jFloors * floorSpriteDimensions.Width
+                                    - ladderSpriteDimensions.Width / 2,
+                                    ladderVerticalStartOffset + iLadder * ladderSpriteDimensions.Sprite.Height +
+                                    floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
+                        }
+
+                    if (jFloors == ladderFloorMisc2 && iFloors == ladderFloorSetMisc2)
+                        for (int iLadder = 0; iLadder < ladderAmountMisc2; iLadder++)
+                        {
+                            ladders.Add(new Ladder(new Vector2(
+                                    jFloors * floorSpriteDimensions.Width
+                                    - ladderSpriteDimensions.Width / 2,
+                                    ladderVerticalStartOffset + iLadder * ladderSpriteDimensions.Sprite.Height +
+                                    floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
+                        }
+
+                    if (jFloors == ladderFloorMisc3 && iFloors == ladderFloorSetMisc3)
+                        for (int iLadder = 0; iLadder < ladderAmountMisc3; iLadder++)
+                        {
+                            ladders.Add(new Ladder(new Vector2(
+                                    jFloors * floorSpriteDimensions.Width
+                                    - ladderSpriteDimensions.Width / 2,
+                                    ladderVerticalStartOffset + iLadder * ladderSpriteDimensions.Sprite.Height +
+                                    floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
+                        }
+
                 }
+            }
+
+            //Add misc platforms
+
+            //Pauline platforms
+            floors.Add(new Floor(new Vector2(pauline.Position.X, pauline.Position.Y)));
+            floors.Add(new Floor(new Vector2(pauline.Position.X - floorSpriteDimensions.Width, pauline.Position.Y)));
+
+            //pauline ladders
+            for (int iLadder = 0; iLadder < paulineMaxLadders; iLadder++)
+            {
+                ladders.Add(new Ladder(new Vector2(pauline.Position.X + floorSpriteDimensions.Width - ladderSpriteDimensions.Width, 
+                    pauline.Position.Y + iLadder * ladderSpriteDimensions.Height)));
+                ladders.Add(new Ladder(new Vector2(pauline.Position.X - floorSpriteDimensions.Width,
+                    pauline.Position.Y + iLadder * ladderSpriteDimensions.Height)));
             }
         }
 
@@ -139,32 +217,79 @@ namespace DonkeyKong
                     floor.MarioHasBeenAbove = false;
                 }
 
+                //floor with mario collision
                 if (floor.CollidesWith(mario)
                     && floor.MarioHasBeenAbove == true
                     && mario.Velocity.Y >= 0)
                 {
                     mario.Velocity = new Vector2(mario.Velocity.X, 0);
-                    mario.Accelleration = new Vector2(mario.Accelleration.X, 0);
-                    mario.MovementStrategy = new OnFloor();
+                    mario.Acceleration = new Vector2(mario.Acceleration.X, 0);
+                    mario.MovementStrategy = new MarioOnFloor();
                     mario.Position = new Vector2(mario.Position.X, -mario.Sprite.Height + floor.Position.Y + 1);
                     break;
                 }
-                else if (mario.MovementStrategy.GetType() == typeof(OnFloor))
+                //reset movementstrategy if mario's movementstrategy is still "OnFloor"
+                else if (!floor.CollidesWith(mario)
+                    && mario.MovementStrategy.GetType() == typeof(MarioOnFloor))
                 {
-                    mario.MovementStrategy = new NormalMovement();
+                    mario.MovementStrategy = new MarioNormalMovement();
                 }
             }
 
+
+
             foreach (Ladder ladder in ladders.Children)
             {
-                if (ladder.CollidesWith(mario))
+                //ladder with mario collision
+                if (ladder.CollidesWith(mario) && Math.Abs((ladder.Position.X + ladder.Center.X) - (mario.Position.X + mario.Center.X)) < ladderDistanceTrigger)
                 {
-                    mario.MovementStrategy = new OnLadder();
+                    mario.MovementStrategy = new MarioOnLadder();
                     break;
                 }
-                if (mario.MovementStrategy.GetType() == typeof(OnLadder))
+                if (mario.MovementStrategy.GetType() == typeof(MarioOnLadder))
                 {
-                    mario.MovementStrategy = new NormalMovement();
+                    mario.MovementStrategy = new MarioNormalMovement();
+                }
+            }
+
+            //Barrel x floor collision and bounce
+            foreach (Barrel barrel in barrels.Children)
+            {
+
+                //floor collision
+                foreach (Floor floor in floors.Children)
+                {
+                    if (floor.CollidesWith(barrel)
+                        && barrel.Velocity.Y >= 0)
+                    {
+                        barrel.Velocity = new Vector2(barrel.Velocity.X, -barrel.Velocity.Y);
+                        if (barrel.MovementStrategy.GetType() != typeof(BarrelOnFloor) && Math.Abs(barrel.Velocity.Y) <= 50)
+                        {
+                            barrel.Velocity = new Vector2(barrel.Velocity.X, 0);
+                            barrel.MovementStrategy = new BarrelOnFloor();
+                        }
+                        break;
+
+                    }
+
+                    if (!floor.CollidesWith(barrel)
+                        && barrel.MovementStrategy.GetType() == typeof(BarrelOnFloor))
+                    {
+                        barrel.MovementStrategy = new BarrelNormalMovement();
+                    }
+
+                }
+
+                //Bounce off walls
+
+                if ((barrel.Position.X -  barrel.Sprite.Width / 2.0f < 0 && barrel.Velocity.X <= 0 && barrel.Acceleration.X <= 0) ||
+                    (barrel.Position.X + barrel.Sprite.Width / 2.0f > GameEnvironment.Screen.X && barrel.Velocity.X >= 0 && barrel.Acceleration.X >= 0))
+                {
+                    if (!(barrel.Position.Y - BarrelOffScreenDifference >= mario.Position.Y))
+                    {
+                        barrel.Velocity = new Vector2(-barrel.Velocity.X, barrel.Velocity.Y);
+                        barrel.Acceleration = new Vector2(-barrel.Acceleration.X, barrel.Acceleration.Y);
+                    }
                 }
             }
         }

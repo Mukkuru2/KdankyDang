@@ -1,4 +1,4 @@
-﻿using DonkeyKong.GameObjects.MarioMovementStrategy;
+﻿using DonkeyKong.GameObjects.MovementStrategies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -11,23 +11,32 @@ namespace DonkeyKong.GameObjects
 {
     class Mario : RotatingSpriteGameObject
     {
-        private MovementStrategy movementStrategy = new NormalMovement();
+        private MarioMovementStrategy movementStrategy = new MarioNormalMovement();
 
         public Mario(Vector2 position) : base("spr_mario")
         {
             this.position = position;
         }
 
-        public MovementStrategy MovementStrategy { get => movementStrategy; set => movementStrategy = value; }
+        public MarioMovementStrategy MovementStrategy { get => movementStrategy; set => movementStrategy = value; }
 
         public override void Update(GameTime gameTime)
         {
-            if ((position.X < 0 && velocity.X <= 0 && acceleration.X <= 0) || 
+            if ((position.X < 0 && velocity.X <= 0 && acceleration.X <= 0) ||
                 (position.X + sprite.Width > GameEnvironment.Screen.X && velocity.X >= 0 && acceleration.X >= 0))
             {
                 velocity.X = 0;
                 acceleration.X = 0;
             }
+
+            if (acceleration.X > 0)
+            {
+                Mirror = true;
+            }
+            else if (acceleration.X < 0) {
+                Mirror = false;
+            }
+
             base.Update(gameTime);
             acceleration.X = 0;
             acceleration.Y = 0;

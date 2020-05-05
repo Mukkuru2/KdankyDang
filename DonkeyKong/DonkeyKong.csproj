@@ -56,13 +56,18 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GameObjects\Barrel.cs" />
     <Compile Include="GameObjects\Floor.cs" />
     <Compile Include="GameObjects\Ladder.cs" />
     <Compile Include="GameObjects\Mario.cs" />
-    <Compile Include="GameObjects\MarioMovementStrategy\MovementStrategy.cs" />
-    <Compile Include="GameObjects\MarioMovementStrategy\Normal.cs" />
-    <Compile Include="GameObjects\MarioMovementStrategy\OnFloor.cs" />
-    <Compile Include="GameObjects\MarioMovementStrategy\OnLadder.cs" />
+    <Compile Include="GameObjects\MovementStrategies\BarrelMovementStrategy.cs" />
+    <Compile Include="GameObjects\MovementStrategies\MarioMovementStrategy.cs" />
+    <Compile Include="GameObjects\MovementStrategies\BarrelNormalMovement.cs" />
+    <Compile Include="GameObjects\MovementStrategies\BarrelOnFloor.cs" />
+    <Compile Include="GameObjects\MovementStrategies\MarioNormalMovement.cs" />
+    <Compile Include="GameObjects\MovementStrategies\MarioOnFloor.cs" />
+    <Compile Include="GameObjects\MovementStrategies\MarioOnLadder.cs" />
+    <Compile Include="GameObjects\Pauline.cs" />
     <Compile Include="GameState\GameOverState.cs" />
     <Compile Include="GameState\PlayingState.cs" />
     <Compile Include="GameState\StartState.cs" />
@@ -96,7 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\spr_bomb.png" />
+    <Content Include="Content\spr_barrel.png" />
     <Content Include="Content\spr_floor.png" />
     <Content Include="Content\spr_ladder_piece.png" />
     <Content Include="Content\spr_mario.png" />

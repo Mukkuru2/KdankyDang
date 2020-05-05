@@ -50,7 +50,7 @@ public abstract class GameObject : IGameLoopObject
         set { velocity = value; }
     }
 
-    public virtual Vector2 Accelleration
+    public virtual Vector2 Acceleration
     {
         get { return acceleration; }
         set { acceleration = value; }

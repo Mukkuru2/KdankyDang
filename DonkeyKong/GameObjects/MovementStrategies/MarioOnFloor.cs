@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonkeyKong.GameObjects.MarioMovementStrategy
+namespace DonkeyKong.GameObjects.MovementStrategies
 {
-    class OnFloor : NormalMovement
+    class MarioOnFloor : MarioNormalMovement
     {
         private readonly Dictionary<Keys, Vector2> MovementDict = new Dictionary<Keys, Vector2>();
 
-        public OnFloor()
+        public MarioOnFloor()
         {
             MovementDict.Add(Keys.Left, new Vector2(-1 * leftRightAccelerationModifier, 0));
             MovementDict.Add(Keys.A, new Vector2(-1 * leftRightAccelerationModifier, 0));
@@ -29,15 +29,14 @@ namespace DonkeyKong.GameObjects.MarioMovementStrategy
             {
                 if (inputHelper.IsKeyDown(kvp.Key))
                 {
-                    mario.Accelleration += kvp.Value;
+                    mario.Acceleration += kvp.Value;
                 }
             }
 
             if (inputHelper.IsKeyDown(Keys.Up) || DateTime.UtcNow - jumpTimeStart < totalJumpTime)
             {
                 jumpTimeStart = DateTime.UtcNow;
-                Console.WriteLine(jumpTimeStart);
-                mario.Accelleration = new Vector2(mario.Accelleration.X, mario.Accelleration.Y + jumpAccelerationModifier);
+                mario.Acceleration = new Vector2(mario.Acceleration.X, mario.Acceleration.Y + jumpAccelerationModifier);
             }
         }
     }

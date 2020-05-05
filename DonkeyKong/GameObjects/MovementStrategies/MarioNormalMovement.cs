@@ -6,23 +6,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DonkeyKong.GameObjects.MarioMovementStrategy
+namespace DonkeyKong.GameObjects.MovementStrategies
 {
-    class NormalMovement : MovementStrategy
+    class MarioNormalMovement : MarioMovementStrategy
     {
         private readonly Dictionary<Keys, Vector2> MovementDict = new Dictionary<Keys, Vector2>();
 
-        protected readonly float leftRightAccelerationModifier = 2000;
-        protected readonly float jumpAccelerationModifier = -4400;
+        protected readonly float leftRightAccelerationModifier = 1500;
+        protected readonly float jumpAccelerationModifier = -3000;
         protected readonly float leftRightResistance = 0.9f;
         protected readonly float fallResistance = 0.98f;
 
-        private float gravity = 1000;
+        private bool doGravity = true;
+        private float gravity = 800;
 
         static protected DateTime jumpTimeStart;
         protected TimeSpan totalJumpTime = TimeSpan.FromMilliseconds(150);
 
-        public NormalMovement() {
+        public bool DoGravity { get => doGravity; set => doGravity = value; }
+
+        public MarioNormalMovement() {
             MovementDict.Add(Keys.Left, new Vector2(-1 * leftRightAccelerationModifier, 0));
             MovementDict.Add(Keys.A, new Vector2(-1 * leftRightAccelerationModifier, 0));
             MovementDict.Add(Keys.Right, new Vector2(1 * leftRightAccelerationModifier, 0));
@@ -37,18 +40,19 @@ namespace DonkeyKong.GameObjects.MarioMovementStrategy
             {
                 if (inputHelper.IsKeyDown(kvp.Key))
                 {
-                    mario.Accelleration += kvp.Value;
+                    mario.Acceleration += kvp.Value;
                 }
             }
 
-            Console.WriteLine(jumpTimeStart);
-
             if (inputHelper.IsKeyDown(Keys.Up) && DateTime.UtcNow - jumpTimeStart < totalJumpTime)
             {
-                mario.Accelleration = new Vector2(mario.Accelleration.X, mario.Accelleration.Y + jumpAccelerationModifier);
+                mario.Acceleration = new Vector2(mario.Acceleration.X, mario.Acceleration.Y + jumpAccelerationModifier);
             }
 
-            mario.Accelleration = new Vector2(mario.Accelleration.X, mario.Accelleration.Y + gravity);
+            if (doGravity)
+            {
+                mario.Acceleration = new Vector2(mario.Acceleration.X, mario.Acceleration.Y + gravity);
+            }
         }
     }
 }

@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="GameObjects\Barrel.cs" />
     <Compile Include="GameObjects\Floor.cs" />
+    <Compile Include="GameObjects\KdankeyDang.cs" />
     <Compile Include="GameObjects\Ladder.cs" />
     <Compile Include="GameObjects\Mario.cs" />
     <Compile Include="GameObjects\MovementStrategies\BarrelMovementStrategy.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="GameObjects\MovementStrategies\MarioOnFloor.cs" />
     <Compile Include="GameObjects\MovementStrategies\MarioOnLadder.cs" />
     <Compile Include="GameObjects\Pauline.cs" />
+    <Compile Include="GameState\WinState.cs" />
     <Compile Include="GameState\GameOverState.cs" />
     <Compile Include="GameState\PlayingState.cs" />
     <Compile Include="GameState\StartState.cs" />
@@ -111,6 +113,7 @@
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
+    <None Include="ClassDiagram" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DonkeyKong.GameObjects
 {
-    class Mario : RotatingSpriteGameObject
+    class Mario : SpriteGameObject
     {
         private MarioMovementStrategy movementStrategy = new MarioNormalMovement();
 

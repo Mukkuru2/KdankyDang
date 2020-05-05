@@ -9,11 +9,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace DonkeyKong
 {
-    class GameOverState : GameObjectList
+    class WinState : GameObjectList
     {
-        public GameOverState()
+        public WinState()
         {
-            this.Add(new SpriteGameObject("LoseScreen"));
+            this.Add(new SpriteGameObject("WinScreen"));
         }
 
         public override void HandleInput(InputHelper inputHelper)
@@ -23,12 +23,6 @@ namespace DonkeyKong
             {
                 GameEnvironment.GameStateManager.SwitchTo("StartState");
             }
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            
         }
     }
 }  

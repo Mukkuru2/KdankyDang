@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace DonkeyKong
 {
@@ -15,7 +16,9 @@ namespace DonkeyKong
         static void Main()
         {
             using (var game = new DonkeyKong())
+            {
                 game.Run();
+            }
         }
     }
 #endif

@@ -10,6 +10,13 @@ namespace DonkeyKong.GameObjects.MovementStrategies
         private float gravity = 800;
         protected bool onFloor = false;
 
+        private Vector2 startVelocity;
+
+        public BarrelNormalMovement(Vector2 velocity)
+        {
+            startVelocity = velocity;
+        }
+
         public override void HandleMovement(Barrel barrel)
         {
             barrel.Acceleration = new Vector2(0, 0);

@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace DonkeyKong.GameObjects.MovementStrategies
 {
-    class BarrelOnFloor : BarrelNormalMovement
+    class BarrelGoingDown : BarrelNormalMovement
     {
-        public BarrelOnFloor(Vector2 velocity) : base(velocity)
+        private Vector2 tempVelocity;
+        public BarrelGoingDown(Vector2 velocity) : base(velocity)
         {
+            tempVelocity = velocity;
         }
 
         public override void HandleMovement(Barrel barrel)
         {
-            onFloor = true;
+            barrel.Velocity = new Vector2(0, barrel.Velocity.Y);
             base.HandleMovement(barrel);
         }
     }

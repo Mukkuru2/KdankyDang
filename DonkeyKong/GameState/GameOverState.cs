@@ -24,11 +24,5 @@ namespace DonkeyKong
                 GameEnvironment.GameStateManager.SwitchTo("StartState");
             }
         }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            
-        }
     }
 }  

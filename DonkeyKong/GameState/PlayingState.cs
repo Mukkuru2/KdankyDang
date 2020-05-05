@@ -21,11 +21,15 @@ namespace DonkeyKong
         GameObjectList ladders;
         GameObjectList barrels;
 
+        private Random random = new Random();
+
         private readonly int floorVerticalStartOffset = 300;
         private readonly int floorSetsHeightDifference = 225;
         private readonly int floorIndividualOffset = 4;
         private readonly int floorsPerLayer = 18;
         private readonly int floorLayers = 4;
+
+        private Dictionary<Ladder, bool> ladderDict = new Dictionary<Ladder, bool>();
 
         private readonly int ladderVerticalStartOffset = 5;
         private readonly int baseLadderAmount = 5;
@@ -42,6 +46,10 @@ namespace DonkeyKong
         private readonly int ladderAmountMisc3 = 2;
         private readonly int ladderFloorMisc3 = 6;
         private readonly int ladderFloorSetMisc3 = 2;
+
+        private readonly int ladderAmountMisc4 = 2;
+        private readonly int ladderFloorMisc4 = 13;
+        private readonly int ladderFloorSetMisc4 = 0;
 
         private readonly int paulineMaxLadders = 6;
 
@@ -201,6 +209,20 @@ namespace DonkeyKong
                         ladders.Add(_ladders);
                     }
 
+                    if (jFloors == ladderFloorMisc4 && iFloors == ladderFloorSetMisc4)
+                    {
+                        GameObjectList _ladders = new GameObjectList();
+                        for (int iLadder = 0; iLadder < ladderAmountMisc4; iLadder++)
+                        {
+                            _ladders.Add(new Ladder(new Vector2(
+                                    jFloors * floorSpriteDimensions.Width
+                                    - ladderSpriteDimensions.Width / 2,
+                                    ladderVerticalStartOffset + iLadder * ladderSpriteDimensions.Sprite.Height +
+                                    floorVerticalStartOffset + iFloors * floorSetsHeightDifference + jFloors * floorIndividualOffset)));
+                        }
+                        ladders.Add(_ladders);
+                    }
+
                 }
             }
 
@@ -212,8 +234,8 @@ namespace DonkeyKong
 
             //pauline ladders
 
-            GameObjectList paulineLadders1 = new GameObjectList();
-            GameObjectList paulineLadders2 = new GameObjectList();
+            GameObjectList paulineLadders1 = new GameObjectList(0, "1");
+            GameObjectList paulineLadders2 = new GameObjectList(0, "1");
 
             for (int iLadder = 0; iLadder < paulineMaxLadders; iLadder++)
             {
@@ -225,6 +247,7 @@ namespace DonkeyKong
 
             ladders.Add(paulineLadders1);
             ladders.Add(paulineLadders2);
+
         }
 
         public override void Update(GameTime gameTime)
@@ -290,7 +313,7 @@ namespace DonkeyKong
                     break;
             }
 
-            //Barrel x floor collision and bounce
+
             foreach (Barrel barrel in barrels.Children)
             {
 
@@ -298,13 +321,14 @@ namespace DonkeyKong
                 foreach (Floor floor in floors.Children)
                 {
                     if (floor.CollidesWith(barrel)
-                        && barrel.Velocity.Y >= 0)
+                        && barrel.Velocity.Y >= 0
+                        && barrel.MovementStrategy.GetType() != typeof(BarrelGoingDown))
                     {
                         barrel.Velocity = new Vector2(barrel.Velocity.X, -barrel.Velocity.Y);
                         if (barrel.MovementStrategy.GetType() != typeof(BarrelOnFloor) && Math.Abs(barrel.Velocity.Y) <= 50)
                         {
                             barrel.Velocity = new Vector2(barrel.Velocity.X, 0);
-                            barrel.MovementStrategy = new BarrelOnFloor();
+                            barrel.MovementStrategy = new BarrelOnFloor(barrel.Velocity);
                         }
                         break;
 
@@ -313,7 +337,7 @@ namespace DonkeyKong
                     if (!floor.CollidesWith(barrel)
                         && barrel.MovementStrategy.GetType() == typeof(BarrelOnFloor))
                     {
-                        barrel.MovementStrategy = new BarrelNormalMovement();
+                        barrel.MovementStrategy = new BarrelNormalMovement(barrel.Velocity);
                     }
 
                 }
@@ -331,10 +355,29 @@ namespace DonkeyKong
                 }
 
                 //remove if outside of screen
-                if (barrel.Position.X + barrel.Center.X < - despawnArea || barrel.Position.X - barrel.Center.X > GameEnvironment.Screen.X + despawnArea)
+                if (barrel.Position.X + barrel.Center.X < -despawnArea || barrel.Position.X - barrel.Center.X > GameEnvironment.Screen.X + despawnArea)
                 {
                     this.Remove(barrel);
-            }
+                }
+
+                //Barrels have a chance to go down the stairs
+                barrel.Position = new Vector2(barrel.Position.X, barrel.Position.Y + barrel.Sprite.Height);
+                Dictionary<Ladder, bool> _ladderDict = new Dictionary<Ladder, bool>(barrel.LadderDict);
+                foreach (KeyValuePair<Ladder, bool> kvp in barrel.LadderDict)
+                {
+                    if (barrel.CollidesWith(kvp.Key) 
+                        && kvp.Value != true
+                        && Math.Abs((barrel.Position.X) - (kvp.Key.Position.X + kvp.Key.Center.X)) < 5)
+                    {
+                        _ladderDict.Remove(kvp.Key);
+                        _ladderDict.Add(kvp.Key, true);
+                        if (random.NextDouble() < 0.2) {
+                            barrel.MovementStrategy = new BarrelGoingDown(barrel.Velocity);
+                        }
+                    }
+                }
+                barrel.LadderDict = _ladderDict;
+                barrel.Position = new Vector2(barrel.Position.X, barrel.Position.Y - barrel.Sprite.Height);
 
                 //Mario loses when he touches a barrel
                 if (barrel.CollidesWith(mario))
@@ -344,13 +387,22 @@ namespace DonkeyKong
             }
 
             //Donkey kong keeps throwing barrels
-            Random random = new Random();
-
-            if (random.NextDouble() <= 0.01)
+            if (random.NextDouble() <= 0.015)
             {
+                //create ladderDict
+                ladderDict = new Dictionary<Ladder, bool>();
+                foreach (GameObjectList ladderList in ladders.Children)
+                {
+                    if (ladderList.Id != "1")
+                    {
+                        ladderDict.Add((Ladder)ladderList.Children[0], false);
+                    }
+                }
+
                 barrels.Add(new Barrel(
                     new Vector2(kdankyDang.Position.X, kdankyDang.Position.Y - 20),
-                    Barrel.BarrelStartVelocity));
+                    Barrel.BarrelStartVelocity,
+                    ladderDict));
             }
 
         }

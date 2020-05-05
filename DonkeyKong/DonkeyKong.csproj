@@ -58,9 +58,11 @@
   <ItemGroup>
     <Compile Include="GameObjects\Barrel.cs" />
     <Compile Include="GameObjects\Floor.cs" />
+    <Compile Include="GameObjects\HammerPowerup.cs" />
     <Compile Include="GameObjects\KdankeyDang.cs" />
     <Compile Include="GameObjects\Ladder.cs" />
     <Compile Include="GameObjects\Mario.cs" />
+    <Compile Include="GameObjects\MovementStrategies\BarrelGoingDown.cs" />
     <Compile Include="GameObjects\MovementStrategies\BarrelMovementStrategy.cs" />
     <Compile Include="GameObjects\MovementStrategies\MarioMovementStrategy.cs" />
     <Compile Include="GameObjects\MovementStrategies\BarrelNormalMovement.cs" />

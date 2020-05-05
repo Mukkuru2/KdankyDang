@@ -11,18 +11,21 @@ namespace DonkeyKong.GameObjects
 {
     class Barrel : RotatingSpriteGameObject
     {
-        private BarrelMovementStrategy movementStrategy = new BarrelNormalMovement();
-        private static Vector2 barrelStartVelocity = new Vector2(200, -800);
+        private static Vector2 barrelStartVelocity = new Vector2(200, -500);
+        private BarrelMovementStrategy movementStrategy = new BarrelNormalMovement(barrelStartVelocity);
+        private Dictionary<Ladder, bool> ladderDict = new Dictionary<Ladder, bool>();
 
-        public Barrel(Vector2 position, Vector2 velocity) : base("spr_barrel")
+        public Barrel(Vector2 position, Vector2 velocity, Dictionary<Ladder, bool> ladderDict) : base("spr_barrel")
         {
             this.position = position;
             this.velocity = velocity;
+            this.ladderDict = ladderDict;
             Origin = Center;
         }
 
         public BarrelMovementStrategy MovementStrategy { get => movementStrategy; set => movementStrategy = value; }
         public static Vector2 BarrelStartVelocity { get => barrelStartVelocity; set => barrelStartVelocity = value; }
+        internal Dictionary<Ladder, bool> LadderDict { get => ladderDict; set => ladderDict = value; }
 
         public override void Update(GameTime gameTime)
         {

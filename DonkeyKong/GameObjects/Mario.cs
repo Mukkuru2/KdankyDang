@@ -22,24 +22,15 @@ namespace DonkeyKong.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+
+            base.Update(gameTime);
+
             if ((position.X < 0 && velocity.X <= 0 && acceleration.X <= 0) ||
                 (position.X + sprite.Width > GameEnvironment.Screen.X && velocity.X >= 0 && acceleration.X >= 0))
             {
                 velocity.X = 0;
                 acceleration.X = 0;
             }
-
-            if (acceleration.X > 0)
-            {
-                Mirror = true;
-            }
-            else if (acceleration.X < 0) {
-                Mirror = false;
-            }
-
-            base.Update(gameTime);
-            acceleration.X = 0;
-            acceleration.Y = 0;
         }
 
         public override void HandleInput(InputHelper inputHelper)

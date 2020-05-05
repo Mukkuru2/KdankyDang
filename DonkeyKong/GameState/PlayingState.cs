@@ -20,6 +20,7 @@ namespace DonkeyKong
         GameObjectList floors;
         GameObjectList ladders;
         GameObjectList barrels;
+        GameObjectList hammers;
 
         private Random random = new Random();
 
@@ -85,6 +86,8 @@ namespace DonkeyKong
             barrels = new GameObjectList();
             this.Add(barrels);
 
+            hammers = new GameObjectList();
+            this.Add(hammers);
 
             SpriteSheet floorSpriteDimensions = new SpriteSheet("spr_floor");
             SpriteSheet ladderSpriteDimensions = new SpriteSheet("spr_ladder_piece");
@@ -248,6 +251,9 @@ namespace DonkeyKong
             ladders.Add(paulineLadders1);
             ladders.Add(paulineLadders2);
 
+            hammers.Add(new HammerPowerup(new Vector2(50, 500)));
+            hammers.Add(new HammerPowerup(new Vector2(50, 1000)));
+
         }
 
         public override void Update(GameTime gameTime)
@@ -257,6 +263,48 @@ namespace DonkeyKong
             if (mario.CollidesWith(pauline))
             {
                 GameEnvironment.GameStateManager.SwitchTo("WinState");
+            }
+
+            Console.WriteLine(mario.Acceleration.X);
+            if (mario.Acceleration.X < 0)
+            {
+                mario.Mirror = true;
+            }
+            else if (mario.Acceleration.X > 0)
+            {
+                mario.Mirror = false;
+            }
+
+            foreach (HammerPowerup hammer in hammers.Children)
+            {
+                if (hammer.IsActive)
+                {
+                    hammer.Position = mario.Position + mario.Center + new Vector2(0,20);
+                    hammer.Mirror = mario.Mirror;
+                    if (hammer.Mirror)
+                    {
+                        hammer.Origin = new Vector2(hammer.Sprite.Width, hammer.Sprite.Height);
+                    }
+                    else
+                    {
+                        hammer.Origin = new Vector2(0, hammer.Sprite.Height);
+                    }
+                }
+                if (hammer.CollidesWith(mario))
+                {
+                    hammer.IsActive = true;
+                }
+
+                //if barrel hits active hammer, remove it
+                for (int iBarrel = 0; iBarrel < barrels.Children.Count; iBarrel++)
+                {
+                    Barrel barrel = (Barrel)barrels.Children.ElementAt(iBarrel);
+                    if (barrel.CollidesWith(hammer) && hammer.IsActive)
+                    {
+                        barrels.Remove(barrel);
+                        break;
+                    }
+                }
             }
 
             foreach (Floor floor in floors.Children)
@@ -365,13 +413,14 @@ namespace DonkeyKong
                 Dictionary<Ladder, bool> _ladderDict = new Dictionary<Ladder, bool>(barrel.LadderDict);
                 foreach (KeyValuePair<Ladder, bool> kvp in barrel.LadderDict)
                 {
-                    if (barrel.CollidesWith(kvp.Key) 
+                    if (barrel.CollidesWith(kvp.Key)
                         && kvp.Value != true
                         && Math.Abs((barrel.Position.X) - (kvp.Key.Position.X + kvp.Key.Center.X)) < 5)
                     {
                         _ladderDict.Remove(kvp.Key);
                         _ladderDict.Add(kvp.Key, true);
-                        if (random.NextDouble() < 0.2) {
+                        if (random.NextDouble() < 0.2)
+                        {
                             barrel.MovementStrategy = new BarrelGoingDown(barrel.Velocity);
                         }
                     }
@@ -384,6 +433,8 @@ namespace DonkeyKong
                 {
                     GameEnvironment.GameStateManager.SwitchTo("GameOverState");
                 }
+
+
             }
 
             //Donkey kong keeps throwing barrels

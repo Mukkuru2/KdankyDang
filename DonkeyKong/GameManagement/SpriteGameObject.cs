@@ -32,7 +32,7 @@ public class SpriteGameObject : GameObject
             spriteEffects = SpriteEffects.FlipHorizontally;
         }
 
-        spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, 0, Origin, sizeScalar, spriteEffects, 0);
+        spriteBatch.Draw(sprite.Sprite, GlobalPosition, null, Color.White, 0.0f, Origin, sizeScalar, spriteEffects, 0);
     }
 
 

@@ -105,17 +105,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\LoseScreen.png" />
     <Content Include="Content\spr_barrel.png" />
     <Content Include="Content\spr_floor.png" />
+    <Content Include="Content\spr_kdanky_dang.png" />
     <Content Include="Content\spr_ladder_piece.png" />
     <Content Include="Content\spr_mario.png" />
+    <Content Include="Content\spr_pauline.png" />
     <Content Include="Content\StartScreen.png" />
+    <Content Include="Content\WinScreen.png" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
-    <None Include="ClassDiagram" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

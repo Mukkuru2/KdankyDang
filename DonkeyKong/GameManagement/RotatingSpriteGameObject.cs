@@ -113,6 +113,46 @@ namespace DonkeyKong
             }
 
             base.Update(gameTime);
+        
+        
+        }
+
+        public override Rectangle BoundingBox
+        {
+            get
+            {
+                int left = (int)(GlobalPosition.X - origin.X);
+                int top = (int)(GlobalPosition.Y - origin.Y);
+                return new Rectangle(left, top, (int)(Width * sizeScalar), (int)(Height * sizeScalar));
+            }
+        }
+
+        public bool CollidesWith(RotatingSpriteGameObject obj)
+        {
+            if (!visible || !obj.visible || !BoundingBox.Intersects(obj.BoundingBox))
+            {
+                return false;
+            }
+            if (!PerPixelCollisionDetection)
+            {
+                return true;
+            }
+            Rectangle b = Collision.Intersection(BoundingBox, obj.BoundingBox);
+            for (int x = 0; x < b.Width; x++)
+            {
+                for (int y = 0; y < b.Height; y++)
+                {
+                    int thisx = b.X - (int)(GlobalPosition.X - origin.X) + x;
+                    int thisy = b.Y - (int)(GlobalPosition.Y - origin.Y) + y;
+                    int objx = b.X - (int)(obj.GlobalPosition.X - obj.origin.X) + x;
+                    int objy = b.Y - (int)(obj.GlobalPosition.Y - obj.origin.Y) + y;
+                    if (sprite.IsTranslucent(thisx, thisy) && obj.sprite.IsTranslucent(objx, objy))
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
     }

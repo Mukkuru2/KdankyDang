@@ -29,7 +29,7 @@ namespace DonkeyKong.GameObjects.MovementStrategies
 
         public override void HandleMovement(Mario mario, InputHelper inputHelper)
         {
-
+            mario.Acceleration = new Vector2();
             mario.Velocity = new Vector2(mario.Velocity.X * leftRightResistance, mario.Velocity.Y * YResistance);
             foreach (KeyValuePair<Keys, Vector2> kvp in MovementDict)
             {

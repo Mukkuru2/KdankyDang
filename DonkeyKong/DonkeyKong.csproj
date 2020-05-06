@@ -71,6 +71,8 @@
     <Compile Include="GameObjects\MovementStrategies\MarioOnFloor.cs" />
     <Compile Include="GameObjects\MovementStrategies\MarioOnLadder.cs" />
     <Compile Include="GameObjects\Pauline.cs" />
+    <Compile Include="GameObjects\FinalScoreText.cs" />
+    <Compile Include="GameObjects\ScoreText.cs" />
     <Compile Include="GameState\WinState.cs" />
     <Compile Include="GameState\GameOverState.cs" />
     <Compile Include="GameState\PlayingState.cs" />
@@ -108,6 +110,8 @@
     <Content Include="Content\LoseScreen.png" />
     <Content Include="Content\spr_barrel.png" />
     <Content Include="Content\spr_floor.png" />
+    <Content Include="Content\spr_hammer%408.png" />
+    <Content Include="Content\spr_hammer.png" />
     <Content Include="Content\spr_kdanky_dang.png" />
     <Content Include="Content\spr_ladder_piece.png" />
     <Content Include="Content\spr_mario.png" />
@@ -120,6 +124,7 @@
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
     <None Include="ClassDiagram.cd" />
+    <None Include="Content\ComicSans.spritefont" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

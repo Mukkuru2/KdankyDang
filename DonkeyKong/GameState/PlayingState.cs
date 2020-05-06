@@ -21,8 +21,11 @@ namespace DonkeyKong
         GameObjectList ladders;
         GameObjectList barrels;
         GameObjectList hammers;
+        GameObjectList scoreText;
 
         private Random random = new Random();
+
+        private int totalScore = 1000;
 
         private readonly int floorVerticalStartOffset = 300;
         private readonly int floorSetsHeightDifference = 225;
@@ -76,6 +79,9 @@ namespace DonkeyKong
 
             ladders = new GameObjectList();
             this.Add(ladders);
+
+            scoreText = new GameObjectList();
+            this.Add(scoreText);
 
             mario = new Mario(new Vector2(100, 900));
             this.Add(mario);
@@ -252,7 +258,7 @@ namespace DonkeyKong
             ladders.Add(paulineLadders2);
 
             hammers.Add(new HammerPowerup(new Vector2(50, 500)));
-            hammers.Add(new HammerPowerup(new Vector2(50, 1000)));
+            hammers.Add(new HammerPowerup(new Vector2(1750, 300)));
 
         }
 
@@ -263,6 +269,9 @@ namespace DonkeyKong
             if (mario.CollidesWith(pauline))
             {
                 GameEnvironment.GameStateManager.SwitchTo("WinState");
+                WinState.FinalScore = totalScore;
+                GameEnvironment.GameStateManager.Reset();
+                
             }
 
             Console.WriteLine(mario.Acceleration.X);
@@ -277,6 +286,9 @@ namespace DonkeyKong
 
             foreach (HammerPowerup hammer in hammers.Children)
             {
+                if (!hammer.Visible) {
+                    this.Remove(hammer);
+                }
                 if (hammer.IsActive)
                 {
                     hammer.Position = mario.Position + mario.Center + new Vector2(0,20);
@@ -292,7 +304,11 @@ namespace DonkeyKong
                 }
                 if (hammer.CollidesWith(mario))
                 {
-                    hammer.IsActive = true;
+                    if (!hammer.IsActive)
+                    {
+                        hammer.IsActive = true;
+                        hammer.PowerupActivated = DateTime.UtcNow;
+                    }
                 }
 
                 //if barrel hits active hammer, remove it
@@ -302,6 +318,9 @@ namespace DonkeyKong
                     if (barrel.CollidesWith(hammer) && hammer.IsActive)
                     {
                         barrels.Remove(barrel);
+                        ScoreText _scoreText = new ScoreText(barrel.Position);
+                        scoreText.Add(_scoreText);
+                        totalScore += ScoreText.ScoreIncrease;
                         break;
                     }
                 }
@@ -432,6 +451,9 @@ namespace DonkeyKong
                 if (barrel.CollidesWith(mario))
                 {
                     GameEnvironment.GameStateManager.SwitchTo("GameOverState");
+                    GameOverState.FinalScore = totalScore;
+                    GameEnvironment.GameStateManager.Reset();
+                    
                 }
 
 
@@ -456,6 +478,12 @@ namespace DonkeyKong
                     ladderDict));
             }
 
+            foreach (ScoreText scoreText in scoreText.Children)
+            {
+                
+            }
+
         }
+       
     }
 }

@@ -13,6 +13,13 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin ComicSans.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ComicSans.spritefont
+
 #begin LoseScreen.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -61,7 +68,7 @@
 /processorParam:TextureFormat=Color
 /build:spr_hammer.png
 
-#begin spr_hammer@6.png
+#begin spr_hammer@8.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,7 +78,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:spr_hammer@6.png
+/build:spr_hammer@8.png
 
 #begin spr_kdanky_dang.png
 /importer:TextureImporter

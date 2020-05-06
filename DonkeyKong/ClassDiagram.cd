@@ -8,49 +8,49 @@
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.RotatingSpriteGameObject">
-    <Position X="7.75" Y="12.25" Width="1.5" />
+    <Position X="9.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQABAAAAAAAAgAAAgAAAEAAAAAAAAASAEQAAAAAAAI=</HashCode>
+      <HashCode>AAQABAAAAAAAAgAAAgAABEAAACAAAAASAEQAAAAAAAI=</HashCode>
       <FileName>GameManagement\RotatingSpriteGameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameOverState">
-    <Position X="24.75" Y="11.25" Width="1.5" />
+    <Position X="27.25" Y="11.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACAAAAABAAAAAACAAAAAgCAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameState\GameOverState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.PlayingState">
-    <Position X="27" Y="11.25" Width="1.5" />
+    <Position X="29.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>YAUSAgAAAIGABB4AAAAIAgAIACMAAAAEAAQAABgAIAA=</HashCode>
+      <HashCode>YA0SAgAAAIGABR4AAgAIAgAJACMAAAQEIAQAABgAICA=</HashCode>
       <FileName>GameState\PlayingState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.StartState">
-    <Position X="22.5" Y="11.25" Width="1.5" />
+    <Position X="25" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameState\StartState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.WinState">
-    <Position X="20.25" Y="11.25" Width="1.5" />
+    <Position X="22.75" Y="11.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAACAAAAABAAAAAACAAAAAgCAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameState\WinState.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.Program" Collapsed="true">
-    <Position X="38.5" Y="2.5" Width="1.5" />
+    <Position X="45.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AnimatedGameObject">
-    <Position X="11.25" Y="12.25" Width="1.5" />
+    <Position X="11.5" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAACAAAAAAAAgEAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManagement\AnimatedGameObject.cs</FileName>
@@ -64,21 +64,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AssetManager" Collapsed="true">
-    <Position X="38.5" Y="0.5" Width="1.5" />
+    <Position X="45.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAEAAAAAAAAAkAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>GameManagement\AssetManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Collision" Collapsed="true">
-    <Position X="40.25" Y="0.5" Width="1.5" />
+    <Position X="47.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManagement\Collision.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DrawingHelper" Collapsed="true">
-    <Position X="42" Y="0.5" Width="1.5" />
+    <Position X="49" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAQAAAAAQEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManagement\DrawingHelper.cs</FileName>
@@ -92,7 +92,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="GameObject">
-    <Position X="20.25" Y="0.5" Width="1.5" />
+    <Position X="24" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQCAACAAACABiBgAAABYAAAACAAAAQMAAQEDAAEAgA=</HashCode>
       <FileName>GameManagement\GameObject.cs</FileName>
@@ -100,21 +100,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="GameObjectList">
-    <Position X="23.5" Y="7" Width="1.5" />
+    <Position X="26.25" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAYAAACAAAAABgQAAAAEBAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManagement\GameObjectList.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameSettingsManager" Collapsed="true">
-    <Position X="38.5" Y="1.5" Width="1.5" />
+    <Position X="45.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAIAAAAgAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManagement\GameSettingsManager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="GameStateManager" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="40.25" Y="1.5" Width="1.5" />
+    <Position X="47.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAACAQAAABgAAAAQAAAIUAAAAAAAQAAAAAAAAAAA=</HashCode>
       <FileName>GameManagement\GameStateManager.cs</FileName>
@@ -122,14 +122,14 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="InputHelper" Collapsed="true">
-    <Position X="42" Y="1.5" Width="1.5" />
+    <Position X="49" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AASIAAAgAAAAAAAAAAIAAUBCAAAAAAAAAAAAQABSgAA=</HashCode>
       <FileName>GameManagement\InputHelper.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SpriteGameObject">
-    <Position X="11.25" Y="7" Width="1.5" />
+    <Position X="11.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAABAAAAgAAAAAABEQAgDAAAAAQAAAAgAgIAIA=</HashCode>
       <FileName>GameManagement\SpriteGameObject.cs</FileName>
@@ -143,105 +143,140 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TextGameObject">
-    <Position X="29.25" Y="7" Width="1.5" />
+    <Position X="33" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAggAAACAAAAAAAAAAAACIAAAAiAAAAAA=</HashCode>
       <FileName>GameManagement\TextGameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.Barrel">
-    <Position X="9" Y="16.75" Width="1.5" />
+    <Position X="9.25" Y="17" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAQAAAAABAAAAAAAAAAAAAIAAAACAAAAIAAAACBAAAA=</HashCode>
       <FileName>GameObjects\Barrel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.Floor">
-    <Position X="4.5" Y="12.25" Width="1.5" />
+    <Position X="4.75" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Floor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.KdankeyDang">
-    <Position X="13.5" Y="12.25" Width="1.5" />
+    <Position X="13.75" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameObjects\KdankeyDang.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.Ladder">
-    <Position X="15.75" Y="12.25" Width="1.5" />
+    <Position X="16" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Ladder.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.Mario">
-    <Position X="6.75" Y="16.75" Width="1.5" />
+    <Position X="7" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAACABAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>GameObjects\Mario.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.Pauline">
-    <Position X="18" Y="12.25" Width="1.5" />
+    <Position X="18.25" Y="12.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameObjects\Pauline.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.MovementStrategies.BarrelMovementStrategy">
-    <Position X="36" Y="7" Width="1.5" />
+    <Position X="42" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>GameObjects\MovementStrategies\BarrelMovementStrategy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.MovementStrategies.BarrelNormalMovement">
-    <Position X="36" Y="9" Width="1.5" />
+    <Position X="42" Y="9" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAASAAAAA=</HashCode>
+      <HashCode>IAACAAgAAAAAAAAAAAAAAAAAAAAAAAAAAEAAASAAAAA=</HashCode>
       <FileName>GameObjects\MovementStrategies\BarrelNormalMovement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.MovementStrategies.BarrelOnFloor">
-    <Position X="36" Y="12" Width="1.5" />
+    <Position X="40.75" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>GameObjects\MovementStrategies\BarrelOnFloor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.MovementStrategies.MarioMovementStrategy">
-    <Position X="32.5" Y="7" Width="1.5" />
+    <Position X="37.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>GameObjects\MovementStrategies\MarioMovementStrategy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.MovementStrategies.MarioNormalMovement">
-    <Position X="32.5" Y="9" Width="1.5" />
+    <Position X="37.5" Y="9" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAiABgAAAAAUAAAAAAABAAAAAAAAAAAAEAAACQAIAA=</HashCode>
       <FileName>GameObjects\MovementStrategies\MarioNormalMovement.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.MovementStrategies.MarioOnFloor">
-    <Position X="31.5" Y="13.75" Width="1.5" />
+    <Position X="36.25" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>GameObjects\MovementStrategies\MarioOnFloor.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DonkeyKong.GameObjects.MovementStrategies.MarioOnLadder">
-    <Position X="33.75" Y="13.75" Width="1.5" />
+    <Position X="38.5" Y="13.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAAAAAAAAAAABAAAAABAAAAQAAAAACAAAAA=</HashCode>
       <FileName>GameObjects\MovementStrategies\MarioOnLadder.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="GameObjectGrid">
+    <Position X="20.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAACAAAIABkBAAAAAIAAAACAAAAEAAAAAwAgAAEA=</HashCode>
+      <FileName>GameManagement\GameObjectGrid.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonkeyKong.GameObjects.FinalScoreText">
+    <Position X="31.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\FinalScoreText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonkeyKong.GameObjects.HammerPowerup">
+    <Position X="11.5" Y="16" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAQAAAAMEAAAABAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\HammerPowerup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonkeyKong.GameObjects.ScoreText">
+    <Position X="34" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAACAAAAAAAAAAAAAQAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GameObjects\ScoreText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DonkeyKong.GameObjects.MovementStrategies.BarrelGoingDown">
+    <Position X="43" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>GameObjects\MovementStrategies\BarrelGoingDown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="IGameLoopObject" Collapsed="true">
-    <Position X="38.5" Y="3.75" Width="1.5" />
+    <Position X="45.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAACAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManagement\IGameLoopObject.cs</FileName>

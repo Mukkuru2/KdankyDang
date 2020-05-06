@@ -25,7 +25,7 @@ namespace DonkeyKong
 
         private Random random = new Random();
 
-        private int totalScore = 1000;
+        private int totalScore = 0;
 
         private readonly int floorVerticalStartOffset = 300;
         private readonly int floorSetsHeightDifference = 225;
@@ -65,6 +65,7 @@ namespace DonkeyKong
         //distance objects have to go offscreen to despawn;
         private readonly int despawnArea = 10;
 
+        private readonly double barrelSpawnChance = 0.015;
 
         public PlayingState()
         {
@@ -274,7 +275,6 @@ namespace DonkeyKong
                 
             }
 
-            Console.WriteLine(mario.Acceleration.X);
             if (mario.Acceleration.X < 0)
             {
                 mario.Mirror = true;
@@ -453,14 +453,13 @@ namespace DonkeyKong
                     GameEnvironment.GameStateManager.SwitchTo("GameOverState");
                     GameOverState.FinalScore = totalScore;
                     GameEnvironment.GameStateManager.Reset();
-                    
                 }
 
 
             }
 
             //Donkey kong keeps throwing barrels
-            if (random.NextDouble() <= 0.015)
+            if (random.NextDouble() <= barrelSpawnChance)
             {
                 //create ladderDict
                 ladderDict = new Dictionary<Ladder, bool>();
@@ -476,11 +475,6 @@ namespace DonkeyKong
                     new Vector2(kdankyDang.Position.X, kdankyDang.Position.Y - 20),
                     Barrel.BarrelStartVelocity,
                     ladderDict));
-            }
-
-            foreach (ScoreText scoreText in scoreText.Children)
-            {
-                
             }
 
         }

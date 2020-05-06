@@ -33,7 +33,7 @@ namespace DonkeyKong
         public override void HandleInput(InputHelper inputHelper)
         {
             base.HandleInput(inputHelper);
-            if (inputHelper.KeyPressed(Keys.Space))
+            if (inputHelper.AnyKeyPressed)
             {
                 GameEnvironment.GameStateManager.SwitchTo("StartState");
             }
